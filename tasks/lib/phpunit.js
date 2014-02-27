@@ -31,12 +31,18 @@ exports.init = function(grunt) {
 
 
       if (err) {
-        // When there are failed tests phpunit will return with exit code 1, but we shouldn't abort grunt in this case
-        if(err.code !== 1) {
+        if(err.code !== 1 && err.code !== 2) {
+          if(config.failOnFailures) {
+            callback(false);
+          } else {
+            grunt.fatal(err);
+          }
+        } else {
           grunt.fatal(err);
         }
+      } else {
+        callback();
       }
-      callback();
     });
 
     if (config.followOutput) {
