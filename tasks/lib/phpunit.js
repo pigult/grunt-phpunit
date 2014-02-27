@@ -31,7 +31,7 @@ exports.init = function(grunt) {
 
 
       if (err) {
-        if(err.code === 1 && err.code === 2) {
+        if(err.code === 1 || err.code === 2) {
           if(config.failOnFailures) {
             callback(false);
           } else {
